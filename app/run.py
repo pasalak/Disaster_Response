@@ -70,10 +70,10 @@ def index():
                 'xaxis': {
                     'title': "Genre"
                 },
-                'width': 1000,
-                'height': 700,
+                'width': 990,
+                'height': 600,
                 'margin': dict(
-                    pad=10,
+                    pad=15,
                     b=150,
                 )
             }
@@ -95,10 +95,10 @@ def index():
                 'xaxis': {
                     'title': "Genre"
                 },
-                'width': 1000,
-                'height': 700,
+                'width': 990,
+                'height': 600,
                 'margin': dict(
-                    pad=10,
+                    pad=15,
                     b=150,
                 )
             }
@@ -123,10 +123,10 @@ def index():
                  'xaxis': {
                 'title': "Categories"
                 },
-                'width': 1000,
-                'height': 700,
+                'width': 990,
+                'height': 600,
                 'margin': dict(
-                    pad=10,
+                    pad=15,
                     b=150,
                     )
                 }
