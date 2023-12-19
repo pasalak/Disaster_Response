@@ -14,18 +14,22 @@ Project is divided into 3 key sections:
  2) Building a ML pipeline to train our model
  3) Run a Web App to show our model results
  
-#Repository Description
+# Repository Description
+
    |--Disaster_Response
+   
           |-- app
                 |-- templates
                     |-- go.html
                     |-- master.html
                 |-- run.py
+		
           |-- data
                 |-- disaster_message.csv
                 |-- disaster_categories.csv
                 |-- DisasterResponse.db
                 |-- process_data.py
+		
           |-- models
                 |-- classifier.pkl
                 |-- train_classifier.py
