@@ -3,6 +3,17 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
+    """
+    load_data
+    load data from messages and categories csv files into single pandas dataframe
+    
+    INPUT
+        messages_filepath : data/disaster_messages.csv
+        categories_filepath: data/disaster_categories.csv
+   
+    OUTPUT
+     df retruns consolidated (merging) categories and messages
+    """
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     df = messages.merge(categories, on="id")
@@ -11,6 +22,14 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    """
+    Clean data includes transform categories part
+    INPUT
+        df : Merged DataFrame
+    
+    OUTPUT
+         df: Returns Cleaned DataFrame
+    """
     categories = df.categories.str.split(";", expand=True)
     row = categories.loc[0]
     category_colnames = row.apply(lambda i: i[:-2])
@@ -20,18 +39,35 @@ def clean_data(df):
         categories[column] = categories[column].astype(int)
     df.drop(columns = ['categories'], inplace=True)
     df = df.join(categories)
+    df.drop(df[df['related'] == 2].index, inplace = True)
     df = df.drop_duplicates()
     return df
    
 
 
 def save_data(df, database_filename):
+    """
+    Stores a df in a SQLite database
+    input:
+        df: a pandas Data Frame
+        Table name : DisasterResponse
+        database_filename: DisasterResponse.db
+    
+    """
     engine = create_engine('sqlite:///' + database_filename)
-    df.to_sql('messages', engine , if_exists='replace', index = False)
+    df.to_sql('DisasterResponse', engine , if_exists='replace', index = False)
     
 
 
 def main():
+    """
+    Main function will initiate data load,clean and save data methods.
+    input:
+        df: a pandas Data Frame
+        Table name : DisasterResponse
+        database_filename: DisasterResponse.db
+    
+    """
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
