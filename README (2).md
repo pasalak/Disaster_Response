@@ -16,16 +16,19 @@ Project is divided into 3 key sections:
  
 #Repository Description
    |--Disaster_Response
+   
           |-- app
                 |-- templates
                     |-- go.html
                     |-- master.html
                 |-- run.py
+		
           |-- data
                 |-- disaster_message.csv
                 |-- disaster_categories.csv
                 |-- DisasterResponse.db
                 |-- process_data.py
+		
           |-- models
                 |-- classifier.pkl
                 |-- train_classifier.py
