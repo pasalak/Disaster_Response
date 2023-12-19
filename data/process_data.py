@@ -39,6 +39,7 @@ def clean_data(df):
         categories[column] = categories[column].astype(int)
     df.drop(columns = ['categories'], inplace=True)
     df = df.join(categories)
+    # Deleting the value 2 as per reviews comments.
     df.drop(df[df['related'] == 2].index, inplace = True)
     df = df.drop_duplicates()
     return df
