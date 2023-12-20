@@ -79,9 +79,8 @@ def build_model():
     parameters = {
         'clf__estimator__n_estimators': [10],
         'clf__estimator__min_samples_split': [2],
-    
     }
-    model = GridSearchCV(pipeline, param_grid=parameters, n_jobs=4, verbose=2, cv=3)
+    model = GridSearchCV(pipeline, param_grid=parameters, n_jobs=1, verbose=2, cv=3)
     return model
 
 def evaluate_model(model, X_test, y_test, category_names):
@@ -112,10 +111,11 @@ def evaluate_model(model, X_test, y_test, category_names):
       #  print(classification_report(Y_test[column],Y_pred[column]))
         
     # Convert multilabel format to single column format
+
     y_test_single = np.argmax(y_test.values, axis=1)
     y_pred_single = np.argmax(y_pred, axis=1)
-
-    class_report = classification_report(y_test_single, y_pred_single, target_names=category_names)
+    class_report = classification_report(y_test_single, y_pred_single, labels=np.arange(0,len(category_names),1),target_names=category_names, digits=4, zero_division=0)
+    print('printing class report now ..')
     print(class_report)
 
 def save_model(model, model_filepath):
@@ -146,6 +146,7 @@ def main():
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
         X, y, category_names = load_data(database_filepath)
+       
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
         
         print('Building model...')
